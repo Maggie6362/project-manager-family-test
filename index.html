@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f3ed">
+  <meta name="description" content="專案管家：以 iPhone 為優先的個人與家庭專案管理工具。">
+  <title>專案管家</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="主要導覽">
+      <a class="brand" href="#dashboard" data-page="dashboard">
+        <img class="brand-mark-image" src="assets/clay-house.png" alt="">
+        <span><strong>專案管家</strong><small>把生活整理得剛剛好</small></span>
+      </a>
+      <nav class="side-nav">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-emoji"><img class="clay-icon-img" src="assets/icons/clay-home.png" alt=""></span>首頁</button>
+        <button class="nav-item" data-page="projects"><span class="nav-emoji"><img class="clay-icon-img" src="assets/icons/clay-tasks.png" alt=""></span>我的專案</button>
+        <button class="nav-item" data-page="shared"><span class="nav-emoji"><img class="clay-icon-img" src="assets/icons/clay-shared.png" alt=""></span>家庭共享</button>
+        <button class="nav-item" data-page="archive"><span class="nav-emoji"><img class="clay-icon-img" src="assets/icons/clay-archive.png" alt=""></span>封存專案</button>
+        <button class="nav-item" data-page="settings"><span class="nav-emoji"><img class="clay-icon-img" src="assets/icons/clay-settings.png" alt=""></span>帳號與備份</button>
+      </nav>
+      <div class="sidebar-foot"><span class="status-dot"></span><span id="connection-label">本機示範模式</span></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-brand"><img class="topbar-brand-image" src="assets/clay-house.png" alt=""><h1 id="page-title">專案管家</h1></div>
+        <div class="topbar-actions"><span class="today-pill" id="today-label"></span><button class="icon-button mobile-menu" id="mobile-menu" aria-label="開啟更多選單">☰</button><button class="avatar-button" id="account-button" aria-label="帳號狀態">🌼</button></div>
+      </header>
+
+      <section class="page active" id="page-dashboard">
+        <section class="daily-nudge-card" aria-labelledby="daily-nudge-title">
+          <div class="daily-nudge-copy"><span class="daily-nudge-date" id="daily-nudge-date"></span><h2 id="daily-nudge-title">今天的小提醒</h2><p id="daily-nudge">先完成一件重要的小事，就很棒了。</p><button class="nudge-action" data-action="focus-today">查看今天的任務 <span aria-hidden="true">→</span></button></div>
+        </section>
+        <section class="today-overview" aria-labelledby="today-overview-title"><div class="overview-heading"><h2 id="today-overview-title">今日概況</h2><span>目前進度</span></div><div class="stats-grid" id="stats-grid"></div></section>
+        <div class="section-heading"><div><span class="tiny-label">UP NEXT</span><h2>接下來要做的事</h2></div><button class="text-button" data-page="projects">查看所有專案 →</button></div>
+        <div class="dashboard-columns"><div class="panel task-panel"><div class="panel-heading"><h3>近期任務</h3><span class="soft-tag">未完成</span></div><div id="upcoming-list" class="task-preview-list"></div></div></div>
+      </section>
+
+      <section class="page" id="page-projects">
+        <div class="page-intro"><div><span class="tiny-label">YOUR PROJECTS</span><h2>我的專案</h2><p>把目標拆成看得見、做得到的小步驟。</p></div><button class="primary-button" data-action="new-project">＋ 新增專案</button></div>
+        <div class="filter-bar"><label class="search-box"><span>⌕</span><input id="project-search" type="search" placeholder="搜尋專案名稱…" aria-label="搜尋專案名稱"></label><select id="category-filter" aria-label="依分類篩選"><option value="all">所有分類</option></select><select id="status-filter" aria-label="依狀態篩選"><option value="all">所有狀態</option><option value="active">進行中</option><option value="completed">已完成</option></select></div>
+        <div id="project-grid" class="project-grid"></div>
+      </section>
+
+      <section class="page" id="page-shared">
+        <div class="page-intro"><div><span class="tiny-label">TOGETHER, GENTLY</span><h2>家庭共享</h2><p>專案由你決定是否共享；邀請連結有效 72 小時。</p></div></div>
+        <div class="notice-card"><span class="notice-icon"><img class="clay-icon-img" src="assets/icons/clay-lock.png" alt=""></span><div><strong>共享權限小提醒</strong><p>只有持有有效邀請連結並登入的人，才能確認加入。請只把連結傳給信任的家人。</p></div></div>
+        <section class="panel family-workspace-panel" aria-labelledby="family-workspace-title">
+          <div class="panel-heading"><div><h3 id="family-workspace-title">家庭工作區</h3><p class="field-hint" id="family-workspace-status">登入後可建立家庭工作區，最多 5 人（含管理員）。</p></div><span class="soft-tag" id="family-role-badge">尚未加入</span></div>
+          <div id="family-workspace-controls"></div>
+          <div id="family-members-list" class="family-members-list"></div>
+          <div id="family-invitations-list" class="family-invitations-list"></div>
+        </section>
+        <div class="section-heading"><div><span class="tiny-label">SHARED PROJECTS</span><h2>共享專案</h2></div></div>
+        <div id="shared-grid" class="project-grid"></div>
+      </section>
+
+      <section class="page" id="page-archive">
+        <div class="page-intro"><div><span class="tiny-label">KEEP THE MEMORIES</span><h2>封存專案</h2><p>封存不等於刪除；需要時可以重新啟用。</p></div></div>
+        <div id="archive-grid" class="project-grid"></div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-intro"><div><span class="tiny-label">YOUR SPACE</span><h2>帳號與備份</h2><p>保留自己的資料，也保留安心感。</p></div></div>
+        <div class="settings-grid">
+          <article class="panel settings-panel"><div class="settings-symbol"><img class="clay-icon-img" src="assets/icons/clay-shared.png" alt=""></div><h3>登入狀態</h3><p id="auth-status">請使用 Google 帳號登入後使用專案管家。</p><div class="settings-actions"><button class="secondary-button" id="login-open">Google 登入</button><button class="text-button" id="logout-button" hidden>登出</button></div></article>
+          <article class="panel settings-panel"><div class="settings-symbol"><img class="clay-icon-img" src="assets/icons/clay-archive.png" alt=""></div><h3>手動備份</h3><p>匯出 JSON 備份檔，或把先前的備份匯入為新的私人副本。</p><div class="settings-actions"><button class="primary-button" id="export-button">匯出備份</button><label class="secondary-button file-button">匯入備份<input id="import-file" type="file" accept="application/json,.json" hidden></label></div></article>
+          <article class="panel settings-panel"><div class="settings-symbol"><img class="clay-icon-img" src="assets/icons/clay-settings.png" alt=""></div><h3>介面偏好</h3><p>使用柔和莫蘭迪色、圓角卡片與大字體，讓手機操作更舒服。</p><div class="settings-actions"><span class="soft-tag">繁體中文</span><span class="soft-tag">iPhone 優先</span><span class="soft-tag">莫蘭迪色系</span></div></article>
+          <article class="panel settings-panel"><div class="settings-symbol"><img class="clay-icon-img" src="assets/icons/clay-settings.png" alt=""></div><h3>雲端設定</h3><p>正式使用前，需在設定檔填入 Supabase 專案網址與公開金鑰。不要把 service_role 等秘密金鑰放在前端。</p><div class="settings-actions"><span class="soft-tag" id="backend-status">尚未連接雲端</span></div></article>
+        </div>
+        <div class="danger-note"><strong>資料提醒</strong><p>正式使用需登入 Google 帳號。多人使用前，必須完成 Supabase RLS 與邀請流程測試。</p></div>
+      </section>
+
+      <footer class="app-footer">用溫柔的步調，完成重要的事。 <span>專案管家 · v0.1.0</span></footer>
+    </main>
+  </div>
+
+  <nav class="bottom-nav" aria-label="手機主要導覽">
+    <button class="bottom-nav-item active" data-page="dashboard" aria-current="page"><span class="bottom-nav-icon" aria-hidden="true"><img class="clay-icon-img" src="assets/icons/clay-home.png" alt=""></span><span>首頁</span></button>
+    <button class="bottom-nav-item" data-page="projects"><span class="bottom-nav-icon" aria-hidden="true"><img class="clay-icon-img" src="assets/icons/clay-project-folder.png" alt=""></span><span>我的專案</span></button>
+    <button class="bottom-nav-item" data-page="shared"><span class="bottom-nav-icon" aria-hidden="true"><img class="clay-icon-img" src="assets/icons/clay-shared.png" alt=""></span><span>家庭共享</span></button>
+    <button class="bottom-nav-item" data-page="archive"><span class="bottom-nav-icon" aria-hidden="true"><img class="clay-icon-img" src="assets/icons/clay-archive.png" alt=""></span><span>歸檔</span></button>
+  </nav>
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog class="modal" id="project-modal"><form id="project-form" method="dialog"><div class="modal-head"><div><span class="tiny-label">A NEW CHAPTER</span><h2 id="project-modal-title">建立新專案</h2></div><button type="button" class="icon-button" data-close="project-modal" aria-label="關閉">×</button></div><input type="hidden" id="project-id"><label>專案名稱 <input id="project-name" maxlength="100" required placeholder="例如：福岡五天四夜旅行"></label><div class="form-row"><label>分類<select id="project-category"><option>生活</option><option>學習</option><option>旅遊</option><option>工作</option><option>投資理財</option><option>其他</option><option value="custom">自訂分類…</option></select></label><label id="custom-category-wrap" hidden>自訂分類<input id="project-custom-category" maxlength="40" placeholder="輸入分類名稱"></label></div><label>專案描述<textarea id="project-description" rows="3" maxlength="600" placeholder="這個專案想完成什麼？"></textarea></label><div class="form-row"><label>開始日期<input id="project-start" type="date"></label><label>截止日期<input id="project-due" type="date"></label></div><label>專案狀態<select id="project-status"><option value="active">進行中</option><option value="completed">已完成</option></select></label><label class="checkbox-row"><input id="project-shared" type="checkbox"><span>建立為家庭共享專案</span></label><p class="field-hint">私人專案預設只有建立者可存取。共享設定可在建立後邀請家人。</p><div class="modal-actions"><button type="button" class="secondary-button" data-close="project-modal">取消</button><button type="submit" class="primary-button">儲存專案</button></div></form></dialog>
+
+  <dialog class="modal modal-wide" id="detail-modal"><div class="modal-head"><div><span class="tiny-label" id="detail-category">PROJECT DETAILS</span><h2 id="detail-title">專案詳情</h2></div><button type="button" class="icon-button" data-close="detail-modal" aria-label="關閉">×</button></div><div id="detail-content"></div></dialog>
+
+  <dialog class="modal" id="task-modal"><form id="task-form" method="dialog"><div class="modal-head"><div><span class="tiny-label">SMALL STEPS</span><h2 id="task-modal-title">新增任務</h2></div><button type="button" class="icon-button" data-close="task-modal" aria-label="關閉">×</button></div><input type="hidden" id="task-id"><input type="hidden" id="task-project-id"><label>任務名稱<input id="task-title" required maxlength="160" placeholder="例如：確認機票時間"></label><label>備註<textarea id="task-notes" rows="3" maxlength="1000" placeholder="補充說明（選填）"></textarea></label><div class="form-row"><label>截止日期<input id="task-due" type="date"></label><label>優先級<select id="task-priority"><option value="medium">中</option><option value="high">高</option><option value="low">低</option></select></label></div><label>任務狀態<select id="task-status"><option value="todo">待處理</option><option value="in_progress">進行中</option><option value="completed">已完成</option></select></label><div class="modal-actions"><button type="button" class="secondary-button" data-close="task-modal">取消</button><button type="submit" class="primary-button">儲存任務</button></div></form></dialog>
+
+  <dialog class="modal auth-modal" id="auth-modal"><div class="auth-screen"><div class="auth-hero"><img src="assets/clay-house.png" alt="專案管家小屋" class="auth-house"><span class="tiny-label">YOUR LITTLE ORGANIZER</span><h2>專案管家</h2><p>把重要的事，慢慢整理好。</p></div><p class="field-hint auth-help" id="auth-help">請使用 Google 帳號登入後，同步並管理你的專案與任務。</p><button type="button" class="primary-button" id="google-login-button">使用 Google 帳號登入</button><p class="auth-footnote">登入後，你的專案將透過雲端同步。</p></div></dialog>
+
+  <dialog class="modal" id="invite-modal"><div class="modal-head"><div><span class="tiny-label">SHARE WITH CARE</span><h2>邀請家人加入</h2></div><button type="button" class="icon-button" data-close="invite-modal" aria-label="關閉">×</button></div><p id="invite-description">邀請連結有效 72 小時，並且只能使用一次。</p><div class="invite-link-box" id="invite-link-box"></div><div class="modal-actions"><button class="secondary-button" data-close="invite-modal">關閉</button><button class="primary-button" id="copy-invite-button">複製邀請連結</button></div></dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

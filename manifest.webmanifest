@@ -1,0 +1,18 @@
+{
+  "name": "專案管家",
+  "short_name": "專案管家",
+  "description": "以 iPhone 為優先的個人與家庭專案管理工具",
+  "lang": "zh-Hant",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f3ed",
+  "theme_color": "#f7f3ed",
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
