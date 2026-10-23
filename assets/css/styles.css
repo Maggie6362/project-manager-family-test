@@ -320,3 +320,7 @@ input, select, textarea, button { font-size: 16px; }
 #detail-content .task-state-tag{font-size:14px;line-height:1.45;padding:5px 9px}
 #detail-content .task-row>.task-check{width:30px;height:30px;border-radius:10px;flex:none}
 #detail-content .mini-action{min-width:44px;min-height:44px;padding:9px 12px;font-size:15px}
+
+
+/* Keep project and task headings at the same size in project details. */
+#detail-modal .modal-head h2{font-size:20px}
