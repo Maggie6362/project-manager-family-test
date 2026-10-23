@@ -324,3 +324,10 @@ input, select, textarea, button { font-size: 16px; }
 
 /* Keep project and task headings at the same size in project details. */
 #detail-modal .modal-head h2{font-size:20px}
+
+/* Keep task priority and status together on narrow screens. */
+@media(max-width:760px){
+  #detail-content .task-row-title{font-size:18px}
+  #detail-content .task-row-meta{display:grid;grid-template-columns:max-content max-content;justify-content:start;gap:5px}
+  #detail-content .priority-tag,#detail-content .task-state-tag{font-size:12px;padding:4px 7px;white-space:nowrap}
+}
