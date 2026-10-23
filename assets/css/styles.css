@@ -306,3 +306,17 @@ input, select, textarea, button { font-size: 16px; }
 .family-member-copy small{color:#929084;font-size:12px}
 .family-workspace-panel .panel-heading{align-items:flex-start}
 @media(max-width:520px){.family-inline-form{align-items:stretch;flex-direction:column}.family-inline-form label{flex-basis:auto}.family-inline-form button{width:100%}.family-member-row{gap:8px}}
+
+
+
+/* Project and task titles: larger, consistent type with easier touch targets. */
+#page-projects .project-card h3,
+#detail-content .task-row-title{font-size:20px;line-height:1.5;font-weight:700}
+#page-projects .project-description{font-size:15px;line-height:1.65}
+#page-projects .project-meta{font-size:14px;line-height:1.5;flex-wrap:wrap}
+#page-projects .project-open{min-height:44px;padding:9px 13px;font-size:15px}
+#detail-content .task-row-notes{font-size:15px;line-height:1.65}
+#detail-content .priority-tag,
+#detail-content .task-state-tag{font-size:14px;line-height:1.45;padding:5px 9px}
+#detail-content .task-row>.task-check{width:30px;height:30px;border-radius:10px;flex:none}
+#detail-content .mini-action{min-width:44px;min-height:44px;padding:9px 12px;font-size:15px}
