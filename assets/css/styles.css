@@ -331,3 +331,6 @@ input, select, textarea, button { font-size: 16px; }
   #detail-content .task-row-meta{display:grid;grid-template-columns:max-content max-content;justify-content:start;gap:5px}
   #detail-content .priority-tag,#detail-content .task-state-tag{font-size:12px;padding:4px 7px;white-space:nowrap}
 }
+
+/* Slightly smaller task title on every screen. */
+#detail-content .task-row-title{font-size:18px}
