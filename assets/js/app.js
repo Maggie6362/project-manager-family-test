@@ -10,7 +10,7 @@
   const CLAY = name => `<img class="clay-icon-img" src="assets/icons/${name}.png" alt="">`;
   const PAGE_INFO = {
     dashboard: ['專案管家', '首頁'], projects: ['把目標變成步驟', '我的專案'],
-    shared: ['一起完成，也一起分享', '家庭共享'], archive: ['完成過的努力都值得保留', '封存專案'],
+    
     settings: ['照顧好自己的資料', '帳號與備份']
   };
   const todayISO = () => { const parts = new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Taipei', year:'numeric', month:'2-digit', day:'2-digit' }).formatToParts(new Date()); const part = type => parts.find(p => p.type === type)?.value || ''; return `${part('year')}-${part('month')}-${part('day')}`; };
