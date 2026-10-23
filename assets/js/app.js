@@ -42,7 +42,7 @@
   };
   let state = { projects: [], tasks: [], user: null, remote: false, loading: false, activePage: 'dashboard', activeProjectId: null, demo: false, pendingInvite: null, familyFeatureAvailable: false, familyWorkspace: null, familyMembers: [], familyInvitations: [] };
   let client = null;
-  let lastInviteLink = '';
+  let lastInviteLink = ''; const FAMILY_INVITE_STORAGE_KEY = 'project-manager-pending-family-invite';
 
   function toast(message, type = 'success') {
     const el = document.createElement('div'); el.className = `toast ${type === 'error' ? 'error' : ''}`; el.textContent = message;
@@ -472,12 +472,12 @@
   }
   async function handlePendingInvite() {
     const params = new URLSearchParams(location.search);
-    const familyToken = params.get('family-invite');
+    const familyToken = params.get('family-invite') || (() => { try { return sessionStorage.getItem(FAMILY_INVITE_STORAGE_KEY); } catch { return null; } })();
     if (familyToken && state.remote && state.user && state.pendingInvite !== familyToken) {
       state.pendingInvite = familyToken;
       const yes = confirm('你收到家庭工作區邀請。要使用目前登入的 Google 帳號確認加入嗎？');
       if (!yes) { state.pendingInvite = null; return; }
-      try { const {error} = await client.rpc('accept_family_invitation',{p_token:familyToken}); if(error) throw error; history.replaceState({},'',location.pathname); await fetchRemoteData(); renderAll(); toast('已加入家庭工作區！'); }
+      try { const {error} = await client.rpc('accept_family_invitation',{p_token:familyToken}); if(error) throw error; try { sessionStorage.removeItem(FAMILY_INVITE_STORAGE_KEY); } catch {} history.replaceState({},'',location.pathname); await fetchRemoteData(); renderAll(); toast('已加入家庭工作區！'); }
       catch(e) { console.error(e); toast(e.message || '家庭邀請無法使用，請確認登入帳號是否與受邀 Email 相符。','error'); }
       finally { state.pendingInvite = null; }
       return;
@@ -609,7 +609,7 @@
   $('#auth-modal').addEventListener('cancel', e => { if(!state.user) e.preventDefault(); });
   $('#auth-modal').addEventListener('click', e => { if(!state.user && e.target.matches('dialog')) e.preventDefault(); });
 
-  async function boot() {
+  async function boot() { const familyToken = new URLSearchParams(location.search).get('family-invite'); if (familyToken) { try { sessionStorage.setItem(FAMILY_INVITE_STORAGE_KEY, familyToken); } catch {} }
     await initBackend();
     // Require Google login before exposing project/task actions; never load local demo data.
     if (!state.user) { state.demo = false; state.projects = []; state.tasks = []; $('#auth-modal').showModal(); }
