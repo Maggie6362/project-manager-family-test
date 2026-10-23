@@ -334,3 +334,10 @@ input, select, textarea, button { font-size: 16px; }
 
 /* Slightly smaller task title on every screen. */
 #detail-content .task-row-title{font-size:18px}
+
+
+/* Standalone family workspace entry card */
+.workspace-entry-panel{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:22px 0 24px;padding:clamp(18px,3vw,26px)}
+.workspace-entry-panel h3{margin:5px 0;font-size:18px}
+.workspace-entry-panel .field-hint{margin:0}
+@media(max-width:520px){.workspace-entry-panel{align-items:stretch;flex-direction:column}.workspace-entry-panel .primary-button{width:100%}}
