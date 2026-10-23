@@ -182,7 +182,7 @@
     renderDashboard(); renderProjectGrid(); renderShared(); renderFamilyWorkspace(); renderArchive(); renderCategoryOptions(); updateConnection();
   }
   function renderDashboard() {
-    const projects = activeProjects(); const openTasks = state.tasks.filter(isOpenTask);
+    const projects = activeProjects(); const openTasks = state.tasks.filter(isOpenTask); const today = todayISO(); const overdue = openTasks.filter(task => task.due_date && String(task.due_date).slice(0,10) < today).length; const dueToday = openTasks.filter(task => task.due_date && String(task.due_date).slice(0,10) === today).length;
     const isOverdueProject = p => p.status !== 'completed' && Boolean(p.due_date && String(p.due_date).slice(0,10) < todayISO());
     const inProgressCount = projects.filter(p => p.status !== 'completed').length;
     const overdueProjectCount = projects.filter(isOverdueProject).length;
